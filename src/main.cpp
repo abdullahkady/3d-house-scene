@@ -171,31 +171,6 @@ void drawTableLeg(double thick, double len)
 	glPopMatrix();
 }
 
-void drawJackPart()
-{
-	glPushMatrix();
-	glScaled(0.2, 0.2, 1.0);
-	glutSolidSphere(1, 15, 15);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslated(0, 0, 1.2);
-	glutSolidSphere(0.2, 15, 15);
-	glTranslated(0, 0, -2.4);
-	glutSolidSphere(0.2, 15, 15);
-	glPopMatrix();
-}
-
-void drawJack()
-{
-	glPushMatrix();
-	drawJackPart();
-	glRotated(90.0, 0, 1, 0);
-	drawJackPart();
-	glRotated(90.0, 1, 0, 0);
-	drawJackPart();
-	glPopMatrix();
-}
-
 void drawTable(double topWid, double topThick, double legThick, double legLen)
 {
 	glPushMatrix();
