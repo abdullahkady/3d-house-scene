@@ -11,6 +11,27 @@
 #define GLUT_KEY_ESCAPE 27
 #define DEG2RAD(a) (a * 0.0174532925)
 
+bool shouldChangeColor = false;
+
+double positiveRedShade = 0;
+double positiveGreenShade = 0;
+double positiveBlueShade = 0;
+
+double negativeRedShade = 0;
+double negativeGreenShade = 0;
+double negativeBlueShade = 0;
+
+void resetColors()
+{
+	positiveRedShade = 0;
+	positiveGreenShade = 0;
+	positiveBlueShade = 0;
+	negativeRedShade = 0;
+	negativeGreenShade = 0;
+	negativeBlueShade = 0;
+	glutPostRedisplay();
+}
+
 class Vector3f
 {
 public:
@@ -120,7 +141,8 @@ Camera camera;
 
 void setDefaultColor()
 {
-	glColor3f(.8, .8, .8);
+	glColor3f(0.8, 0.8, 0.8);
+	glutPostRedisplay();
 }
 
 void setupLights()
@@ -154,9 +176,9 @@ void setupCamera()
 void drawWall(double thickness)
 {
 	glPushMatrix();
-	glColor3f(0.8, 0.4, 0.2); // Brown
 	glTranslated(0.5, 0.5 * thickness, 0.5);
 	glScaled(1.0, thickness, 1.0);
+	glColor3f(0.8 + positiveRedShade - negativeRedShade, 0.4 + positiveGreenShade - negativeGreenShade, 0.2 + positiveBlueShade - negativeBlueShade); // Brown
 	glutSolidCube(1);
 	glPopMatrix();
 	setDefaultColor();
@@ -205,14 +227,14 @@ void drawFirstRoom()
 	glScaled(1, 0.1, 0.1);
 	glutSolidCube(1);
 	glPopMatrix();
-
+	glColor3f(0 + positiveRedShade - negativeRedShade, 0 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
 	glutSolidTorus(0.1, 1, 25, 25);
 	glPopMatrix();
 	// CLOCK
 
 	// TRASH BIN
 	glPushMatrix();
-	glColor3f(0, 0.2, 0);
+	glColor3f(0 + positiveRedShade - negativeRedShade, 0.2 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
 	glTranslated(0.15, 0.2, 0.2);
 	glRotated(90, 1, 0, 0);
 	glScaled(0.04, 0.04, 0.04);
@@ -227,6 +249,7 @@ void drawFirstRoom()
 	glPushMatrix();
 	glTranslated(0.6, 0.38, 0.5);
 	glRotated(30, 0, 1, 0);
+	glColor3f(0.3 + positiveRedShade - negativeRedShade, 0.5 + positiveGreenShade - negativeGreenShade, 0.5 + positiveBlueShade - negativeBlueShade);
 	glutSolidTeapot(0.08);
 	glPopMatrix();
 
@@ -340,6 +363,11 @@ void onKeyPress(unsigned char key, int x, int y)
 
 	switch (key)
 	{
+	case 'c':
+		shouldChangeColor = !shouldChangeColor;
+		if (!shouldChangeColor)
+			resetColors();
+		break;
 	case 'w':
 		camera.moveY(d);
 		break;
@@ -397,8 +425,25 @@ void onSpecialKey(int key, int x, int y)
 	glutPostRedisplay();
 }
 
+void colorDurationHandler(int x)
+{
+	if (shouldChangeColor)
+	{
+		positiveRedShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		positiveGreenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		positiveBlueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+
+		negativeRedShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		negativeGreenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		negativeBlueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	}
+
+	glutTimerFunc(800, colorDurationHandler, 0);
+}
+
 int main(int argc, char **argv)
 {
+	srand(time(NULL)); // Random seed
 	glutInit(&argc, argv);
 
 	glutInitWindowSize(640, 480);
@@ -408,7 +453,7 @@ int main(int argc, char **argv)
 	glutDisplayFunc(Display);
 	glutKeyboardFunc(onKeyPress);
 	glutSpecialFunc(onSpecialKey);
-
+	colorDurationHandler(0);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
