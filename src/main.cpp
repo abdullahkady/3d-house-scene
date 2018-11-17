@@ -154,7 +154,7 @@ void setupCamera()
 void drawWall(double thickness)
 {
 	glPushMatrix();
-	glColor3f(0.8, 0.4, 0.1); // Brown
+	glColor3f(0.8, 0.4, 0.2); // Brown
 	glTranslated(0.5, 0.5 * thickness, 0.5);
 	glScaled(1.0, thickness, 1.0);
 	glutSolidCube(1);
@@ -194,14 +194,35 @@ void drawTable(double topWid, double topThick, double legThick, double legLen)
 
 void drawFirstRoom()
 {
+	// CLOCK
 	glPushMatrix();
-	glScaled(0.5, 0.5, 0.5);
+	glTranslated(0.4, 0.55, 0);
+	glScaled(0.15, 0.15, 0.15);
+
 	glPushMatrix();
-	glTranslated(0.4, 0.4, 0.6);
 	glRotated(45, 0, 0, 1);
-	glScaled(0.08, 0.08, 0.08);
-	drawJack();
+	glTranslated(0.5, 0.1, 0);
+	glScaled(1, 0.1, 0.1);
+	glutSolidCube(1);
 	glPopMatrix();
+
+	glutSolidTorus(0.1, 1, 25, 25);
+	glPopMatrix();
+	// CLOCK
+
+	// TRASH BIN
+	glPushMatrix();
+	glColor3f(0, 0.2, 0);
+	glTranslated(0.15, 0.2, 0.2);
+	glRotated(90, 1, 0, 0);
+	glScaled(0.04, 0.04, 0.04);
+	gluCylinder(gluNewQuadric(), 1, 1, 5, 20, 20);
+	glPopMatrix();
+
+	glPushMatrix();
+	setDefaultColor();
+	glScaled(0.8, 0.8, 0.8);
+	glTranslated(0.4, 0, 0.4);
 
 	glPushMatrix();
 	glTranslated(0.6, 0.38, 0.5);
@@ -209,10 +230,14 @@ void drawFirstRoom()
 	glutSolidTeapot(0.08);
 	glPopMatrix();
 
+	// ORANGE THING
 	glPushMatrix();
-	glTranslated(0.25, 0.42, 0.35);
-	glutSolidSphere(0.1, 15, 15);
+	glColor3f(1, 0.6, 0);
+	glTranslated(0.25, 0.35, 0.35);
+	glutSolidSphere(0.05, 15, 15);
 	glPopMatrix();
+
+	setDefaultColor();
 
 	glPushMatrix();
 	glTranslated(0.4, 0.0, 0.4);
