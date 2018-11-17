@@ -255,8 +255,19 @@ void drawFirstRoom()
 
 	// ORANGE THING
 	glPushMatrix();
-	glColor3f(1, 0.6, 0);
+
 	glTranslated(0.25, 0.35, 0.35);
+	// ROOT THING
+	glPushMatrix();
+	glColor3f(0 + positiveRedShade - negativeRedShade, 1 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
+	glScaled(0.4, 1.3, 0.4);
+	glTranslated(0, 0.04, 0);
+	glRotated(-90, 1, 0, 0);
+	glutSolidCube(0.01);
+	glPopMatrix();
+	// ROOT THING
+
+	glColor3f(1 + positiveRedShade - negativeRedShade, 0.6 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
 	glutSolidSphere(0.05, 15, 15);
 	glPopMatrix();
 
