@@ -13,22 +13,22 @@
 double clockRotation = 0;
 bool shouldChangeColor = false;
 
-double positiveRedShade = 0;
-double positiveGreenShade = 0;
-double positiveBlueShade = 0;
+double redShade = 0;
+double greenShade = 0;
+double blueShade = 0;
 
-double negativeRedShade = 0;
-double negativeGreenShade = 0;
-double negativeBlueShade = 0;
+double extraRedShade = 0;
+double extraGreenShade = 0;
+double extraBlueShade = 0;
 
 void resetColors()
 {
-	positiveRedShade = 0;
-	positiveGreenShade = 0;
-	positiveBlueShade = 0;
-	negativeRedShade = 0;
-	negativeGreenShade = 0;
-	negativeBlueShade = 0;
+	redShade = 0;
+	greenShade = 0;
+	blueShade = 0;
+	extraRedShade = 0;
+	extraGreenShade = 0;
+	extraBlueShade = 0;
 	glutPostRedisplay();
 }
 
@@ -178,7 +178,7 @@ void drawWall(double thickness)
 	glPushMatrix();
 	glTranslated(0.5, 0.5 * thickness, 0.5);
 	glScaled(1.0, thickness, 1.0);
-	glColor3f(0.8 + positiveRedShade - negativeRedShade, 0.4 + positiveGreenShade - negativeGreenShade, 0.2 + positiveBlueShade - negativeBlueShade); // Brown
+	glColor3f(0.8 + redShade, 0.4 + extraGreenShade, 0.2 - blueShade); // Brown
 	glutSolidCube(1);
 	glPopMatrix();
 	setDefaultColor();
@@ -228,14 +228,14 @@ void drawFirstRoom()
 	glutSolidCube(1);
 	glPopMatrix();
 
-	glColor3f(0 + positiveRedShade - negativeRedShade, 0 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
+	glColor3f(0 + redShade, 0 + greenShade, 0 + extraBlueShade);
 	glutSolidTorus(0.1, 1, 25, 25);
 	glPopMatrix();
 	// CLOCK
 
 	// TRASH BIN
 	glPushMatrix();
-	glColor3f(0 + positiveRedShade - negativeRedShade, 0.2 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
+	glColor3f(0 + redShade + extraRedShade, 0.2 + greenShade, 0 + blueShade + extraBlueShade);
 	glTranslated(0.15, 0.2, 0.2);
 	glRotated(90, 1, 0, 0);
 	glScaled(0.04, 0.04, 0.04);
@@ -250,7 +250,7 @@ void drawFirstRoom()
 	glPushMatrix();
 	glTranslated(0.6, 0.38, 0.5);
 	glRotated(30, 0, 1, 0);
-	glColor3f(0.3 + positiveRedShade - negativeRedShade, 0.5 + positiveGreenShade - negativeGreenShade, 0.5 + positiveBlueShade - negativeBlueShade);
+	glColor3f(0.3 + extraRedShade, 0.5 - greenShade + extraGreenShade, 0.5 - extraBlueShade);
 	glutSolidTeapot(0.08);
 	glPopMatrix();
 
@@ -260,7 +260,7 @@ void drawFirstRoom()
 	glTranslated(0.25, 0.35, 0.35);
 	// ROOT THING
 	glPushMatrix();
-	glColor3f(0 + positiveRedShade - negativeRedShade, 1 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
+	glColor3f(0 + redShade + extraRedShade, 1 - greenShade, 0 + extraBlueShade);
 	glScaled(0.4, 1.3, 0.4);
 	glTranslated(0, 0.04, 0);
 	glRotated(-90, 1, 0, 0);
@@ -268,7 +268,7 @@ void drawFirstRoom()
 	glPopMatrix();
 	// ROOT THING
 
-	glColor3f(1 + positiveRedShade - negativeRedShade, 0.6 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
+	glColor3f(1 - redShade, 0.6 + greenShade - extraGreenShade, 0 + blueShade);
 	glutSolidSphere(0.05, 15, 15);
 	glPopMatrix();
 
@@ -441,13 +441,13 @@ void colorDurationHandler(int x)
 {
 	if (shouldChangeColor)
 	{
-		positiveRedShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		positiveGreenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		positiveBlueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		redShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		greenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		blueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 
-		negativeRedShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		negativeGreenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		negativeBlueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		extraRedShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		extraGreenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		extraBlueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 	}
 
 	glutTimerFunc(800, colorDurationHandler, 0);
