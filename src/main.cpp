@@ -359,11 +359,17 @@ void drawCloset()
 	// Closet corner line decoration thing
 	glPushMatrix();
 	glColor3f(0.5 + extraRedShade - redShade, 1 - greenShade - extraGreenShade, 0.8 + blueShade - extraBlueShade);
-	glRotated(45, 0, 0, 1);
-	glTranslated(0.7, 0.7, 0.5);
-	glScaled(1.3, 0.1, 0.05);
+	glTranslated(0, 0.7, 0.5);
+	glScaled(1, 0.1, 0.05);
 	glutSolidCube(1);
 	glPopMatrix();
+	glPushMatrix();
+	glColor3f(0.5 + extraRedShade - redShade, 1 - greenShade - extraGreenShade, 0.8 + blueShade - extraBlueShade);
+	glTranslated(0, 0.9, 0.5);
+	glScaled(1, 0.1, 0.05);
+	glutSolidCube(1);
+	glPopMatrix();
+
 	// Closet corner line decoration thing
 
 	glScaled(1, 3, 1);
