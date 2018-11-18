@@ -178,7 +178,7 @@ void drawWall(double thickness)
 	glPushMatrix();
 	glTranslated(0.5, 0.5 * thickness, 0.5);
 	glScaled(1.0, thickness, 1.0);
-	glColor3f(0.8 + redShade, 0.4 + extraGreenShade, 0.2 - blueShade); // Brown
+	glColor3f(0.756 + redShade, 0.604 + extraGreenShade, 0.42 - blueShade); // Brown
 	glutSolidCube(1);
 	glPopMatrix();
 	setDefaultColor();
@@ -276,6 +276,7 @@ void drawFirstRoom()
 
 	glPushMatrix();
 	glTranslated(0.4, 0.0, 0.4);
+	glColor3f(1 - extraRedShade, 1 - greenShade, 0.7 + extraBlueShade - blueShade);
 	drawTable(0.6, 0.02, 0.02, 0.3);
 	glPopMatrix();
 
@@ -450,7 +451,7 @@ void colorDurationHandler(int x)
 		extraBlueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 	}
 
-	glutTimerFunc(800, colorDurationHandler, 0);
+	glutTimerFunc(500, colorDurationHandler, 0);
 }
 
 void idleCallback()
