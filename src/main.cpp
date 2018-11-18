@@ -324,12 +324,36 @@ void drawCloset()
 	glPopMatrix();
 }
 
+void drawCoatHanger()
+{
+	glPushMatrix();
+	glutSolidCone(1, 3, 15, 15);
+	glTranslated(0, 0, 3);
+	glutSolidSphere(1, 15, 15);
+	glPopMatrix();
+}
+
 void drawSecondRoom()
 {
 	glPushMatrix();
 	glTranslated(-0.3, 0.3, 0.1);
 	glScaled(0.2, 0.2, 0.2);
 	drawCloset();
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.7 + extraRedShade, 0.5 - greenShade, 0 + extraBlueShade + blueShade);
+	glTranslated(-0.7, 0.6, 0);
+	glScaled(0.015, 0.015, 0.015);
+	drawCoatHanger();
+	glPushMatrix();
+	glTranslated(-3, 0, 0);
+	drawCoatHanger();
+	glPushMatrix();
+	glTranslated(-3, 0, 0);
+	drawCoatHanger();
+	glPopMatrix();
+	glPopMatrix();
 	glPopMatrix();
 
 	// Back wall
