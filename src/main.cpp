@@ -10,7 +10,7 @@
 
 #define GLUT_KEY_ESCAPE 27
 #define DEG2RAD(a) (a * 0.0174532925)
-
+double clockRotation = 0;
 bool shouldChangeColor = false;
 
 double positiveRedShade = 0;
@@ -220,13 +220,14 @@ void drawFirstRoom()
 	glPushMatrix();
 	glTranslated(0.4, 0.55, 0);
 	glScaled(0.15, 0.15, 0.15);
-
+	// CLOCK ARM
 	glPushMatrix();
-	glRotated(45, 0, 0, 1);
+	glRotated(clockRotation, 0, 0, 1);
 	glTranslated(0.5, 0.1, 0);
 	glScaled(1, 0.1, 0.1);
 	glutSolidCube(1);
 	glPopMatrix();
+
 	glColor3f(0 + positiveRedShade - negativeRedShade, 0 + positiveGreenShade - negativeGreenShade, 0 + positiveBlueShade - negativeBlueShade);
 	glutSolidTorus(0.1, 1, 25, 25);
 	glPopMatrix();
