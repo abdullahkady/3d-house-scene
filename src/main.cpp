@@ -295,8 +295,42 @@ void drawFirstRoom()
 	// ============ WALLS ============ //
 }
 
+void drawCloset()
+{
+	glPushMatrix();
+	// Closet handle
+	glPushMatrix();
+	glColor3f(1 - redShade, 0.9 - extraGreenShade, 1 - blueShade);
+	glTranslated(0.2, 0, 0.5);
+	glScaled(0.15, 0.65, 0.15);
+	glScaled(.5, .5, .5);
+	glutSolidSphere(1, 15, 15);
+	glPopMatrix();
+	// Closet handle
+
+	// Closet corner line decoration thing
+	glPushMatrix();
+	glColor3f(0.5 + extraRedShade - redShade, 1 - greenShade - extraGreenShade, 0.8 + blueShade - extraBlueShade);
+	glRotated(45, 0, 0, 1);
+	glTranslated(0.7, 0.7, 0.5);
+	glScaled(1.3, 0.1, 0.05);
+	glutSolidCube(1);
+	glPopMatrix();
+	// Closet corner line decoration thing
+
+	glScaled(1, 3, 1);
+	glColor3f(0.6 + extraRedShade, 0.4 - greenShade + extraGreenShade, 0 - extraBlueShade);
+	glutSolidCube(1);
+	glPopMatrix();
+}
+
 void drawSecondRoom()
 {
+	glPushMatrix();
+	glTranslated(-0.3, 0.3, 0.1);
+	glScaled(0.2, 0.2, 0.2);
+	drawCloset();
+	glPopMatrix();
 
 	// Back wall
 	glPushMatrix();
