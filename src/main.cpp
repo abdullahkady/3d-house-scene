@@ -178,7 +178,7 @@ void drawWall(double thickness)
 	glPushMatrix();
 	glTranslated(0.5, 0.5 * thickness, 0.5);
 	glScaled(1.0, thickness, 1.0);
-	glColor3f(0.756 + redShade, 0.604 + extraGreenShade, 0.42 - blueShade); // Brown
+	glColor3f(0.9 + redShade, 0.9 + extraGreenShade, 1 - blueShade);
 	glutSolidCube(1);
 	glPopMatrix();
 	setDefaultColor();
