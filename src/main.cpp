@@ -218,6 +218,7 @@ void drawFirstRoom()
 {
 	// CLOCK
 	glPushMatrix();
+	glColor3f(0 + redShade, 0 + greenShade, 0 + extraBlueShade);
 	glTranslated(0.4, 0.55, 0);
 	glScaled(0.15, 0.15, 0.15);
 	// CLOCK ARM
@@ -227,8 +228,8 @@ void drawFirstRoom()
 	glScaled(1, 0.1, 0.1);
 	glutSolidCube(1);
 	glPopMatrix();
+	// CLOCK ARM
 
-	glColor3f(0 + redShade, 0 + greenShade, 0 + extraBlueShade);
 	glutSolidTorus(0.1, 1, 25, 25);
 	glPopMatrix();
 	// CLOCK
