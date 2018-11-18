@@ -21,6 +21,10 @@ double extraRedShade = 0;
 double extraGreenShade = 0;
 double extraBlueShade = 0;
 
+float randomFloat()
+{
+	return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+}
 void resetColors()
 {
 	redShade = 0;
@@ -702,13 +706,13 @@ void colorDurationHandler(int x)
 {
 	if (shouldChangeColor)
 	{
-		redShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		greenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		blueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		redShade = randomFloat();
+		greenShade = randomFloat();
+		blueShade = randomFloat();
 
-		extraRedShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		extraGreenShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		extraBlueShade = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		extraRedShade = randomFloat();
+		extraGreenShade = randomFloat();
+		extraBlueShade = randomFloat();
 	}
 
 	glutTimerFunc(500, colorDurationHandler, 0);
