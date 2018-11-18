@@ -214,8 +214,64 @@ void drawTable(double topWid, double topThick, double legThick, double legLen)
 	glPopMatrix();
 }
 
+void drawChair()
+{
+	glPushMatrix();
+
+	// CHAIR BACK
+	glPushMatrix();
+	glColor3f(0.6 + greenShade, 0 + blueShade, 0.8 - extraRedShade);
+	glTranslated(-.25, 1.03, -0.1);
+	glScaled(0.8, 1.1, 0.08);
+	glutSolidCube(1);
+	glPopMatrix();
+	// CHAIR BACK
+
+	// CHAIR BOTTOM
+	glPushMatrix();
+	glColor3f(0.6 + blueShade, 0.8 - extraGreenShade, 0 + redShade + extraBlueShade);
+	glTranslated(-.25, 0.5, 0.25);
+	glScaled(0.8, 0.08, 0.8);
+	glutSolidCube(1);
+	glPopMatrix();
+	// CHAIR BOTTOM
+
+	// 4 LEGS
+	glPushMatrix();
+	glScaled(0.1, 1, 0.1);
+	glColor3f(0.6 + extraGreenShade, 0.3 + extraRedShade - blueShade, 0.1 + greenShade + redShade);
+	glPushMatrix();
+	glutSolidCube(1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-5, 0, 0);
+	glutSolidCube(1);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslated(-5, 0, 5);
+	glutSolidCube(1);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslated(0, 0, 5);
+	glutSolidCube(1);
+	glPopMatrix();
+
+	glPopMatrix();
+	// 4 LEGS
+
+	glPopMatrix();
+}
+
 void drawFirstRoom()
 {
+	glPushMatrix();
+
+	glTranslated(0.25, 0.13, 0.7);
+	glScaled(0.15, 0.15, 0.15);
+	glRotated(45, 0, 1, 0);
+	drawChair();
+	glPopMatrix();
 	// CLOCK
 	glPushMatrix();
 	glColor3f(0 + redShade, 0 + greenShade, 0 + extraBlueShade);
