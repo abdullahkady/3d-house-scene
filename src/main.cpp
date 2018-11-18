@@ -233,15 +233,6 @@ void drawFirstRoom()
 	glPopMatrix();
 	// CLOCK
 
-	// TRASH BIN
-	glPushMatrix();
-	glColor3f(0 + redShade + extraRedShade, 0.2 + greenShade, 0 + blueShade + extraBlueShade);
-	glTranslated(0.15, 0.2, 0.2);
-	glRotated(90, 1, 0, 0);
-	glScaled(0.04, 0.04, 0.04);
-	gluCylinder(gluNewQuadric(), 1, 1, 5, 20, 20);
-	glPopMatrix();
-
 	glPushMatrix();
 	setDefaultColor();
 	glScaled(0.8, 0.8, 0.8);
@@ -365,6 +356,17 @@ void drawBed()
 
 void drawSecondRoom()
 {
+
+	// TRASH BIN
+	glPushMatrix();
+	glTranslated(-0.9, 0, -0.1);
+	glColor3f(0 + redShade + extraRedShade, 0.2 + greenShade, 0 + blueShade + extraBlueShade);
+	glTranslated(0.15, 0.2, 0.2);
+	glRotated(90, 1, 0, 0);
+	glScaled(0.04, 0.04, 0.04);
+	gluCylinder(gluNewQuadric(), 1, 1, 5, 20, 20);
+	glPopMatrix();
+	// TRASH BIN
 
 	glPushMatrix();
 	glRotated(-90, 0, 1, 0);
