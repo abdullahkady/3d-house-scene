@@ -417,8 +417,85 @@ void drawBed()
 	glPopMatrix();
 }
 
+void drawCounter()
+{
+	glPushMatrix();
+
+	// LAMP/DECORATION THING
+	glPushMatrix();
+	glTranslated(0, 0.55, 0);
+	glScaled(0.2, 0.2, 0.2);
+	// STAND BASE
+	glPushMatrix();
+	glColor3f(0 + redShade, 0 + blueShade, 0 + extraBlueShade);
+	glScaled(0.3, 4, 0.3);
+	glutSolidCube(1);
+	glPopMatrix();
+	// STAND BASE
+	glPushMatrix();
+	glColor3f(1 - extraGreenShade, 1 - extraBlueShade, 0.1 + blueShade);
+	glTranslated(0, 2.75, 0);
+	glutSolidIcosahedron();
+	glPopMatrix();
+	glPopMatrix();
+	// LAMP/DECORATION THING
+
+	// TOP PART
+	glPushMatrix();
+	glColor3f(0.6 + extraGreenShade, 1 - redShade, 0.7 + blueShade - extraBlueShade);
+	glTranslated(0, 0.5, 0);
+	glScaled(1.2, 0.1, 1.2);
+	glutSolidCube(1);
+	glPopMatrix();
+	// TOP PART
+
+	// BODY
+	glPushMatrix();
+	glColor3f(0.8 - extraBlueShade, 0.4 + extraGreenShade - redShade, 0 + greenShade + blueShade);
+	glutSolidCube(1);
+	glPopMatrix();
+	// BODY
+
+	// LEGS
+	glPushMatrix();
+	glColor3f(0.8 - extraBlueShade, 0.4 + extraGreenShade - redShade, 0 + greenShade + blueShade);
+	glTranslated(0.3, -0.5, -0.3);
+	glScaled(0.2, 1, 0.2);
+	glPushMatrix();
+	glutSolidCube(1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-3, 0, 0);
+	glutSolidCube(1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-3, 0, 3);
+	glutSolidCube(1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0, 0, 3);
+	glutSolidCube(1);
+	glPopMatrix();
+
+	glPopMatrix();
+	// LEGs
+
+	glPopMatrix();
+}
+
 void drawSecondRoom()
 {
+
+	// COUNTER
+	glPushMatrix();
+	glTranslated(-0.15, 0.17, 0.8);
+	glScaled(0.15, 0.15, 0.15);
+	drawCounter();
+	glPopMatrix();
+	// COUNTER
 
 	// TRASH BIN
 	glPushMatrix();
