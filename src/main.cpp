@@ -333,14 +333,55 @@ void drawCoatHanger()
 	glPopMatrix();
 }
 
+void drawBed()
+{
+	glPushMatrix();
+	// BACKSIDE
+	glPushMatrix();
+	glColor3f(0.7 + blueShade - extraGreenShade, 0.3 + extraRedShade, 0.2 + extraBlueShade);
+	glScaled(1, 1, 0.1);
+	glutSolidCube(1);
+	glPopMatrix();
+
+	// BODY
+	glPushMatrix();
+	glTranslated(0, -0.25, 2);
+	glPushMatrix();
+	glColor3f(.6 + greenShade, 1 - redShade, 0.5 + extraRedShade); // Mattress green(ish) color
+	glScaled(1, 0.5, 4);
+	glutSolidCube(1);
+	glPopMatrix();
+	// END PART THING ?
+	glPushMatrix();
+	glColor3f(0.7 + blueShade - extraGreenShade, 0.3 + extraRedShade, 0.2 + extraBlueShade);
+	glTranslated(0, 0.1, 2.1);
+	glScaled(1, 0.7, 0.3);
+	glutSolidCube(1);
+	glPopMatrix();
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
 void drawSecondRoom()
 {
+
+	glPushMatrix();
+	glRotated(-90, 0, 1, 0);
+	glScaled(0.25, 0.25, 0.15);
+	glTranslated(2, 0.6, 0.3);
+	drawBed();
+	glPopMatrix();
+
+	// CLOSET
 	glPushMatrix();
 	glTranslated(-0.3, 0.3, 0.1);
 	glScaled(0.2, 0.2, 0.2);
 	drawCloset();
 	glPopMatrix();
+	// CLOSET
 
+	// HANGERS
 	glPushMatrix();
 	glColor3f(0.7 + extraRedShade, 0.5 - greenShade, 0 + extraBlueShade + blueShade);
 	glTranslated(-0.7, 0.6, 0);
@@ -355,6 +396,7 @@ void drawSecondRoom()
 	glPopMatrix();
 	glPopMatrix();
 	glPopMatrix();
+	// HANGERS
 
 	// Back wall
 	glPushMatrix();
