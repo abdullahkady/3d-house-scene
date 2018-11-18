@@ -370,6 +370,21 @@ void setRightView()
 	camera.eye.z = 0.434158;
 }
 
+void setFrontView()
+{
+	camera.up.x = -0.00171101;
+	camera.up.y = 0.995962;
+	camera.up.z = -0.0897583;
+
+	camera.center.x = 0.0095462;
+	camera.center.y = 0.491564;
+	camera.center.z = 1.5339;
+
+	camera.eye.x = 0.0304264;
+	camera.eye.y = 0.590316;
+	camera.eye.z = 2.62926;
+}
+
 void onKeyPress(unsigned char key, int x, int y)
 {
 	float d = 0.01 * 10;
@@ -407,6 +422,9 @@ void onKeyPress(unsigned char key, int x, int y)
 		break;
 	case 'y':
 		setTopView();
+		break;
+	case 'f':
+		setFrontView();
 		break;
 	case GLUT_KEY_ESCAPE:
 		exit(EXIT_SUCCESS);
