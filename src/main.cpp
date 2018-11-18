@@ -452,6 +452,15 @@ void colorDurationHandler(int x)
 	glutTimerFunc(800, colorDurationHandler, 0);
 }
 
+void idleCallback()
+{
+	if (clockRotation < 0)
+	{
+		clockRotation = 360;
+	}
+	clockRotation -= 0.05;
+}
+
 int main(int argc, char **argv)
 {
 	srand(time(NULL)); // Random seed
@@ -465,6 +474,7 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(onKeyPress);
 	glutSpecialFunc(onSpecialKey);
 	colorDurationHandler(0);
+	glutIdleFunc(idleCallback);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
