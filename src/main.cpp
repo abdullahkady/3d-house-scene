@@ -32,6 +32,15 @@ double targetLeftRoomScaleY = 1;
 double targetLeftRoomTranslationX = 0;
 double targetLeftRoomTranslationY = 0;
 
+double rightRoomScaleX = 1;
+double rightRoomScaleY = 1;
+double rightRoomTranslationX = 0;
+double rightRoomTranslationY = 0;
+double targetRightRoomScaleX = 1;
+double targetRightRoomScaleY = 1;
+double targetRightRoomTranslationX = 0;
+double targetRightRoomTranslationY = 0;
+
 float randomFloat()
 {
 	return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
@@ -45,8 +54,12 @@ void resetLeftRoomAnimation()
 	leftRoomTranslationY = 0;
 }
 
-void resetSecondRoomAnimation()
+void resetRightRoomAnimation()
 {
+	rightRoomScaleX = 1;
+	rightRoomScaleY = 1;
+	rightRoomTranslationX = 0;
+	rightRoomTranslationY = 0;
 }
 
 void resetColors()
@@ -293,13 +306,19 @@ void drawChair()
 
 void drawFirstRoom()
 {
-	glPushMatrix();
 
+	glPushMatrix();
+	glTranslated(rightRoomTranslationX, rightRoomTranslationY, 0);
+
+	// CHAIR
+	glPushMatrix();
 	glTranslated(0.25, 0.13, 0.7);
 	glScaled(0.15, 0.15, 0.15);
 	glRotated(45, 0, 1, 0);
 	drawChair();
 	glPopMatrix();
+	// CHAIR
+
 	// CLOCK
 	glPushMatrix();
 	glColor3f(0 + redShade, 0 + greenShade, 0 + extraBlueShade);
@@ -332,7 +351,6 @@ void drawFirstRoom()
 
 	// ORANGE THING
 	glPushMatrix();
-
 	glTranslated(0.25, 0.35, 0.35);
 	// ROOT THING
 	glPushMatrix();
@@ -343,10 +361,10 @@ void drawFirstRoom()
 	glutSolidCube(0.01);
 	glPopMatrix();
 	// ROOT THING
-
 	glColor3f(1 - redShade, 0.6 + greenShade - extraGreenShade, 0 + blueShade);
 	glutSolidSphere(0.05, 15, 15);
 	glPopMatrix();
+	// ORANGE THING
 
 	setDefaultColor();
 
@@ -358,6 +376,7 @@ void drawFirstRoom()
 
 	glPopMatrix();
 
+	glPopMatrix();
 	// ============ WALLS ============ //
 	drawWall(0.02);
 	glPushMatrix();
@@ -596,7 +615,11 @@ void Display()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glPushMatrix();
+	glScaled(rightRoomScaleX, rightRoomScaleY, 1);
 	drawFirstRoom();
+	glPopMatrix();
+
 	glPushMatrix();
 	glScaled(leftRoomScaleX, leftRoomScaleY, 1);
 	drawSecondRoom();
@@ -815,6 +838,57 @@ void leftRoomAnimationHandler()
 
 void rightRoomAnimationHandler()
 {
+	double step = 0.0004;
+	if (targetRightRoomScaleX - rightRoomScaleX > 0.001)
+		rightRoomScaleX += step;
+	else if (targetRightRoomScaleX - rightRoomScaleX < -0.001)
+		rightRoomScaleX -= step;
+	else
+		// This means that the target been reached, create a new target
+		targetRightRoomScaleX = randomFloat() + randomFloat();
+
+	if (targetRightRoomScaleY - rightRoomScaleY > 0.001)
+		rightRoomScaleY += step;
+	else if (targetRightRoomScaleY - rightRoomScaleY < -0.001)
+		rightRoomScaleY -= step;
+	else
+		targetRightRoomScaleY = randomFloat() + randomFloat();
+
+	if (targetRightRoomTranslationX - rightRoomTranslationX > 0.001)
+		rightRoomTranslationX += step;
+	else if (targetRightRoomTranslationX - rightRoomTranslationX < -0.001)
+		rightRoomTranslationX -= step;
+	else
+	{
+		float random = randomFloat() / 4;
+		if (random > 0.1)
+		{
+			random = 0.09;
+		}
+		else if (random < 0.1)
+		{
+			random = 0.11;
+		}
+		targetRightRoomTranslationX = random;
+	}
+
+	if (targetRightRoomTranslationY - rightRoomTranslationY > 0.001)
+		rightRoomTranslationY += step;
+	else if (targetRightRoomTranslationY - rightRoomTranslationY < -0.001)
+		rightRoomTranslationY -= step;
+	else
+	{
+		float random = randomFloat() / 6;
+		if (random > .9)
+		{
+			random = .89;
+		}
+		else if (random < 0.1)
+		{
+			random = 0.11;
+		}
+		targetRightRoomTranslationY = random;
+	}
 }
 
 void idleCallback()
@@ -829,7 +903,11 @@ void idleCallback()
 		leftRoomAnimationHandler();
 	else
 		resetLeftRoomAnimation();
-	rightRoomAnimationHandler();
+
+	if (shouldAnimateRightRoom)
+		rightRoomAnimationHandler();
+	else
+		resetRightRoomAnimation();
 }
 
 int main(int argc, char **argv)
