@@ -37,7 +37,7 @@ float randomFloat()
 	return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 }
 
-void resetleftRoomAnimation()
+void resetLeftRoomAnimation()
 {
 	leftRoomScaleX = 1;
 	leftRoomScaleY = 1;
@@ -826,13 +826,9 @@ void idleCallback()
 	clockRotation -= 0.05;
 
 	if (shouldAnimateLeftRoom)
-	{
 		leftRoomAnimationHandler();
-	}
 	else
-	{
-		resetleftRoomAnimation();
-	}
+		resetLeftRoomAnimation();
 	rightRoomAnimationHandler();
 }
 
