@@ -608,6 +608,79 @@ void drawSecondRoom()
 	glPopMatrix();
 }
 
+void drawMonster()
+{
+	glPushMatrix();
+	glScaled(1, 2, 0.65);
+
+	// NOSE/TEETH
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glRotated(30, 0, 0, 1);
+	glTranslated(-0.1, -0.2, 0.6);
+	glScaled(0.7, 0.7, 0.7);
+	glutSolidTetrahedron();
+	glPopMatrix();
+	// NOSE/TEETH
+
+	// NOSE/TEETH
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glRotated(30, 0, 0, 1);
+	glTranslated(0, -0.2, 0.6);
+	glScaled(0.7, 0.7, 0.7);
+	glutSolidTetrahedron();
+	glPopMatrix();
+	// NOSE/TEETH
+
+	// ARM RIGHT
+	glPushMatrix();
+	glTranslated(1, 0, 0);
+	glRotated(-45, 0, 0, 1);
+	glScaled(1, 10, 1);
+	glutSolidCube(0.1);
+	glPopMatrix();
+	// ARM RIGHT
+
+	// ARM LEFT
+	glPushMatrix();
+	glTranslated(-1, 0, 0);
+	glRotated(45, 0, 0, 1);
+	glScaled(1, 10, 1);
+	glutSolidCube(0.1);
+	glPopMatrix();
+	// ARM LEFT
+
+	// LEG THING
+	glPushMatrix();
+	glTranslated(0, -0.65, 0);
+	glRotated(90, 1, 0, 0);
+	glScaled(0.5, 1, 0.5);
+	gluCylinder(gluNewQuadric(), 0.75, 0.3, 2, 15, 15);
+	glPopMatrix();
+	// LEG THING
+
+	// 2 EYES
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glTranslated(0, 0.4, 0);
+	glPushMatrix();
+	glTranslated(0.3, 0, 0);
+	glutSolidCone(0.5, 1.5, 15, 15);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslated(-0.3, 0, 0);
+	glutSolidCone(0.5, 1.5, 15, 15);
+	glPopMatrix();
+	glPopMatrix();
+	// 2 EYES
+
+	// THE ACTUAL THING
+	glColor3f(0, 0, 0);
+	glutSolidSphere(1, 15, 15);
+	glPopMatrix();
+}
+
 void Display()
 {
 	setupCamera();
