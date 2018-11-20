@@ -41,6 +41,15 @@ double targetRightRoomScaleY = 1;
 double targetRightRoomTranslationX = 0;
 double targetRightRoomTranslationY = 0;
 
+double monsterX, monsterY, monsterZ;
+double monsterRotationAngleZ;
+double monsterRotationAngleY, monsterRotationFlagY;
+double monsterHandRotation = 25;
+bool monsterHandRotationFlag = true;
+bool shouldDisplayMonster = false;
+int monsterAnimationType = 0; // Either one or zero
+double monsterJumpStep;
+
 float randomFloat()
 {
 	return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
@@ -640,7 +649,7 @@ void drawMonster()
 	// ARM RIGHT
 	glPushMatrix();
 	glTranslated(1, 0, 0);
-	glRotated(-45, 0, 0, 1);
+	glRotated(-monsterHandRotation, 0, 0, 1);
 	glScaled(1, 10, 1);
 	glutSolidCube(0.1);
 	glPopMatrix();
@@ -649,7 +658,7 @@ void drawMonster()
 	// ARM LEFT
 	glPushMatrix();
 	glTranslated(-1, 0, 0);
-	glRotated(45, 0, 0, 1);
+	glRotated(monsterHandRotation, 0, 0, 1);
 	glScaled(1, 10, 1);
 	glutSolidCube(0.1);
 	glPopMatrix();
@@ -694,6 +703,17 @@ void Display()
 	setupLights();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	if (shouldDisplayMonster)
+	{
+		glPushMatrix();
+		glTranslated(monsterX, monsterY, monsterZ);
+		glRotated(monsterRotationAngleY, 0, 1, 0);
+		glRotated(monsterRotationAngleZ, 0, 0, 1);
+		glScaled(0.1, 0.1, 0.1);
+		drawMonster();
+		glPopMatrix();
+	}
 
 	glPushMatrix();
 	glScaled(rightRoomScaleX, rightRoomScaleY, 1);
@@ -971,8 +991,76 @@ void rightRoomAnimationHandler()
 	}
 }
 
+void moveMonsterHands()
+{
+	if (monsterHandRotationFlag)
+	{
+		monsterHandRotation += 0.75;
+		if (monsterHandRotation > 155)
+			monsterHandRotationFlag = false;
+	}
+	else
+	{
+		monsterHandRotation -= 0.75;
+		if (monsterHandRotation < 25)
+			monsterHandRotationFlag = true;
+	}
+}
+
+void firstMonsterAnimationHandler()
+{
+	moveMonsterHands();
+	if (monsterY <= 0.4)
+	{
+		float step = 0.4;
+		monsterRotationAngleZ += step;
+		if (monsterRotationAngleZ >= 360)
+			shouldDisplayMonster = false;
+	}
+	else
+	{
+		monsterY -= 0.001;
+	}
+}
+
+void secondMonsterAnimationHandler()
+{
+	if (monsterJumpStep <= 0)
+	{
+		moveMonsterHands();
+		float step = 0.1;
+		if (monsterRotationFlagY)
+		{
+			monsterRotationAngleY += step;
+			if (monsterRotationAngleY >= 45)
+			{
+				monsterRotationFlagY = false;
+			}
+		}
+		else
+		{
+			monsterRotationAngleY -= step;
+			if (monsterRotationAngleY < -45)
+			{
+				monsterRotationFlagY = false;
+				shouldDisplayMonster = false;
+			}
+		}
+	}
+	else
+	{
+		monsterJumpStep -= 0.000001;
+		monsterY += monsterJumpStep;
+	}
+}
+
 void idleCallback()
 {
+	if (monsterAnimationType == 0)
+		firstMonsterAnimationHandler();
+	else
+		secondMonsterAnimationHandler();
+
 	if (clockRotation < 0)
 	{
 		clockRotation = 360;
@@ -991,6 +1079,44 @@ void idleCallback()
 	glutPostRedisplay();
 }
 
+void initializeFirstAnimation()
+{
+	monsterRotationAngleZ = 0;
+	monsterRotationAngleY = 0;
+	monsterHandRotation = 25;
+	monsterX = 0.2;
+	monsterY = 1.75;
+	monsterZ = 0.1;
+}
+
+void initializeSecondAnimation()
+{
+	monsterRotationFlagY = true;
+	monsterRotationAngleY = 0;
+	monsterRotationAngleZ = 0;
+	monsterJumpStep = 0.001;
+	monsterHandRotation = 25;
+	monsterX = -0.75;
+	monsterY = 0.35;
+	monsterZ = 0.8;
+}
+
+void monsterDurationHandler(int value)
+{
+	int randomPeriod = 5000 + (5 * (rand() % 1000));
+	shouldDisplayMonster = !shouldDisplayMonster;
+	if (shouldDisplayMonster)
+	{
+		// Define animation monster type
+		monsterAnimationType = rand() % 2;
+		if (monsterAnimationType == 0)
+			initializeFirstAnimation();
+		else
+			initializeSecondAnimation();
+	}
+	glutTimerFunc(randomPeriod, monsterDurationHandler, 0);
+}
+
 int main(int argc, char **argv)
 {
 	srand(time(NULL)); // Random seed
@@ -1004,6 +1130,7 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(onKeyPress);
 	glutSpecialFunc(onSpecialKey);
 	colorDurationHandler(0);
+	monsterDurationHandler(0);
 	glutIdleFunc(idleCallback);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
