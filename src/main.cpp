@@ -613,9 +613,11 @@ void drawMonster()
 	glPushMatrix();
 	glScaled(1, 2, 0.65);
 
+	// TEETH THING
+	glPushMatrix();
+	// glColor3f(1, 1, 1); // Both teeth color
 	// NOSE/TEETH
 	glPushMatrix();
-	glColor3f(1, 1, 1);
 	glRotated(30, 0, 0, 1);
 	glTranslated(-0.1, -0.2, 0.6);
 	glScaled(0.7, 0.7, 0.7);
@@ -625,14 +627,18 @@ void drawMonster()
 
 	// NOSE/TEETH
 	glPushMatrix();
-	glColor3f(1, 1, 1);
 	glRotated(30, 0, 0, 1);
 	glTranslated(0, -0.2, 0.6);
 	glScaled(0.7, 0.7, 0.7);
 	glutSolidTetrahedron();
 	glPopMatrix();
 	// NOSE/TEETH
+	glPopMatrix();
+	// TEETH THING
 
+	// ARMS
+	glPushMatrix();
+	// glColor3f(1, 1, 1); // Arms color
 	// ARM RIGHT
 	glPushMatrix();
 	glTranslated(1, 0, 0);
@@ -650,9 +656,12 @@ void drawMonster()
 	glutSolidCube(0.1);
 	glPopMatrix();
 	// ARM LEFT
+	glPopMatrix();
+	// ARMS
 
 	// LEG THING
 	glPushMatrix();
+	// glColor3f(0, 0, 0); // Leg color
 	glTranslated(0, -0.65, 0);
 	glRotated(90, 1, 0, 0);
 	glScaled(0.5, 1, 0.5);
@@ -662,7 +671,7 @@ void drawMonster()
 
 	// 2 EYES
 	glPushMatrix();
-	glColor3f(1, 1, 1);
+	// glColor3f(1, 1, 1); // Eyes color
 	glTranslated(0, 0.4, 0);
 	glPushMatrix();
 	glTranslated(0.3, 0, 0);
@@ -676,7 +685,7 @@ void drawMonster()
 	// 2 EYES
 
 	// THE ACTUAL THING
-	glColor3f(0, 0, 0);
+	// glColor3f(0, 0, 0); // Main body color
 	glutSolidSphere(1, 15, 15);
 	glPopMatrix();
 }
