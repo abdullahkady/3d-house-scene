@@ -70,7 +70,6 @@ void resetColors()
 	extraRedShade = 0;
 	extraGreenShade = 0;
 	extraBlueShade = 0;
-	glutPostRedisplay();
 }
 
 class Vector3f
@@ -183,7 +182,6 @@ Camera camera;
 void setDefaultColor()
 {
 	glColor3f(0.8, 0.8, 0.8);
-	glutPostRedisplay();
 }
 
 void setupLights()
@@ -859,7 +857,7 @@ void colorDurationHandler(int x)
 		extraGreenShade = randomFloat();
 		extraBlueShade = randomFloat();
 	}
-
+	glutPostRedisplay();
 	glutTimerFunc(500, colorDurationHandler, 0);
 }
 
@@ -990,6 +988,7 @@ void idleCallback()
 		rightRoomAnimationHandler();
 	else
 		resetRightRoomAnimation();
+	glutPostRedisplay();
 }
 
 int main(int argc, char **argv)
