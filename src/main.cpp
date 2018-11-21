@@ -622,26 +622,13 @@ void drawMonster()
 
 	// TEETH THING
 	glPushMatrix();
-	// glColor3f(1, 1, 1); // Both teeth color
-	// NOSE/TEETH
-	glPushMatrix();
+	glColor3f(1, 1, 1); // Both teeth color
 	glRotated(30, 0, 0, 1);
 	glTranslated(-0.1, -0.2, 0.6);
 	glScaled(0.7, 0.7, 0.7);
 	glutSolidTetrahedron();
 	glPopMatrix();
 	// NOSE/TEETH
-
-	// NOSE/TEETH
-	glPushMatrix();
-	glRotated(30, 0, 0, 1);
-	glTranslated(0, -0.2, 0.6);
-	glScaled(0.7, 0.7, 0.7);
-	glutSolidTetrahedron();
-	glPopMatrix();
-	// NOSE/TEETH
-	glPopMatrix();
-	// TEETH THING
 
 	// ARMS
 	glPushMatrix();
