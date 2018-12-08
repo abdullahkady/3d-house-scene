@@ -9,4 +9,4 @@ A 3d house scene (supposedly 'haunted'), developed using OpenGL (freeglut), and 
 ```
 $ make
 ```
-[Demo](https://drive.google.com/open?id=1T-rE3otCMdt43aq30-IMe1Jq7puAQk6V)
+[Demo video](https://youtu.be/zDutnMIfnlM)
